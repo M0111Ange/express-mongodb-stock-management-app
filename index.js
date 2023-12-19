@@ -1,16 +1,16 @@
 require('dotenv').config();
+var express = require('express');
 
-const express = require('express');
-const allRoutes = require('./route');
-const { connectDatabase } = require('./database/databaseConnection');
+var  allRoutes=require('./routes');
+var {connectDb}=require('./database/dbConnection');
 
-const app = express();
-connectDatabase();
-
+var app = express();
+connectDb();
 app.use(express.json());
 
-app.use('/api/stock', allRoutes);
+app.use('/api/',allRoutes)
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server listening on port ${process.env.PORT}`);
+
+app.listen(process.env.PORT,()=>{
+   console.log(`listening on port ${process.env.PORT}`);
 });

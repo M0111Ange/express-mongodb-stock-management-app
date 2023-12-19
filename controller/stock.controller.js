@@ -1,33 +1,35 @@
-const stockModel = require('../model/stock.model');
+// var mongoose = require('mongoose');
+var  StockModel= require('../model/stock.model');
 
-const createStock = async (req, res, next) => { 
-    try {
-        const newStock = new stockModel(req.body);
-        const savedStock = await newStock.save();
-        
-        console.log(savedStock);
+var createStock = async (req, res, next) => {
+try {
+    var newProduct =new StockModel(req.body);
+    var savedProduct =await newProduct.save();
 
-        res.status(201).json({
-            message: 'Stock created',
-            stock: savedStock
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Failed to save stock!!");
-    }
+    console.log(savedProduct);
+    res.status(201).json({
+        message:'Product saved successfully',
+        item: savedProduct
+    })
+} catch (error) {
+    res.status(500).send('Failed to save product');
 }
 
-const listStocks = async (req, res, next) => { 
-    try {
-        const stocks = await stockModel.find({});
-        res.status(200).json({ stocks });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Error fetching stocks!!");
-    }
-}
-
-module.exports = {
-    createStock,
-    listStocks
 };
+
+var listStock = async (req, res, next) => {
+    try {
+        var stock=await StockModel.find({});
+        res.status(200).json(stock);
+
+        
+    } catch (error) {
+        res.status(500).send('Failed to find stock product');
+    }
+}
+
+
+module.exports ={
+    createStock,
+    listStock
+}
